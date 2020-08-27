@@ -444,14 +444,10 @@ public class JdbcPreparedStatement extends JdbcStatement implements
      */
     @Override
     public void setDate(int parameterIndex, java.sql.Date x) throws SQLException {
-        try {
-            if (isDebugEnabled()) {
-                debugCode("setDate(" + parameterIndex + ", " + quoteDate(x) + ");");
-            }
-            setParameter(parameterIndex, x == null ? ValueNull.INSTANCE : ValueDate.get(null, x));
-        } catch (Exception e) {
-            throw logAndConvert(e);
+        if (isDebugEnabled()) {
+            debugCode("setDate(" + parameterIndex + ", " + quoteDate(x) + ");");
         }
+        setObject(parameterIndex, x != null ? x.toLocalDate() : null);
     }
 
     /**
@@ -482,14 +478,10 @@ public class JdbcPreparedStatement extends JdbcStatement implements
      */
     @Override
     public void setTimestamp(int parameterIndex, java.sql.Timestamp x) throws SQLException {
-        try {
-            if (isDebugEnabled()) {
-                debugCode("setTimestamp(" + parameterIndex + ", " + quoteTimestamp(x) + ");");
-            }
-            setParameter(parameterIndex, x == null ? ValueNull.INSTANCE : ValueTimestamp.get(null, x));
-        } catch (Exception e) {
-            throw logAndConvert(e);
+    	  if (isDebugEnabled()) {
+            debugCode("setTimestamp(" + parameterIndex + ", " + quoteTimestamp(x) + ");");
         }
+    	  setObject(parameterIndex, x != null ? x.toLocalDateTime() : null);
     }
 
     /**

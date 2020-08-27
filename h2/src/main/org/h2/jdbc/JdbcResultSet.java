@@ -25,11 +25,14 @@ import java.sql.SQLXML;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import org.h2.api.ErrorCode;
 import org.h2.api.Interval;
 import org.h2.api.TimestampWithTimeZone;
@@ -383,12 +386,8 @@ public class JdbcResultSet extends TraceObject implements ResultSet, JdbcResultS
      */
     @Override
     public Date getDate(int columnIndex) throws SQLException {
-        try {
-            debugCodeCall("getDate", columnIndex);
-            return get(columnIndex).getDate(null);
-        } catch (Exception e) {
-            throw logAndConvert(e);
-        }
+			LocalDate localDate = getObject(columnIndex, LocalDate.class);
+			return localDate != null ? Date.valueOf(localDate) : null;
     }
 
     /**
@@ -419,12 +418,8 @@ public class JdbcResultSet extends TraceObject implements ResultSet, JdbcResultS
      */
     @Override
     public Timestamp getTimestamp(int columnIndex) throws SQLException {
-        try {
-            debugCodeCall("getTimestamp", columnIndex);
-            return get(columnIndex).getTimestamp(null);
-        } catch (Exception e) {
-            throw logAndConvert(e);
-        }
+			LocalDateTime localDateTime = getObject(columnIndex, LocalDateTime.class);
+			return localDateTime != null ? Timestamp.valueOf(localDateTime) : null;
     }
 
     /**
@@ -455,12 +450,8 @@ public class JdbcResultSet extends TraceObject implements ResultSet, JdbcResultS
      */
     @Override
     public Date getDate(String columnLabel) throws SQLException {
-        try {
-            debugCodeCall("getDate", columnLabel);
-            return get(columnLabel).getDate(null);
-        } catch (Exception e) {
-            throw logAndConvert(e);
-        }
+			LocalDate localDate = getObject(columnLabel, LocalDate.class);
+			return localDate != null ? Date.valueOf(localDate) : null;
     }
 
     /**
@@ -491,12 +482,8 @@ public class JdbcResultSet extends TraceObject implements ResultSet, JdbcResultS
      */
     @Override
     public Timestamp getTimestamp(String columnLabel) throws SQLException {
-        try {
-            debugCodeCall("getTimestamp", columnLabel);
-            return get(columnLabel).getTimestamp(null);
-        } catch (Exception e) {
-            throw logAndConvert(e);
-        }
+			LocalDateTime localDateTime = getObject(columnLabel, LocalDateTime.class);
+			return localDateTime != null ? Timestamp.valueOf(localDateTime) : null;
     }
 
     /**
